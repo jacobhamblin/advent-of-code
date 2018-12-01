@@ -2,7 +2,8 @@ import sys
 
 
 def frequency_steps(list_changes, initial = 0):
-    return list_changes
+    list_changes = [int(str_num) for str_num in list_changes]
+    return initial + sum(list_changes)
 
 
 def main():
