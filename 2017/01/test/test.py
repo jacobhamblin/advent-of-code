@@ -42,3 +42,16 @@ def test_matches_circular():
     expect_equal(matches, 3, 'Expected %s to be %s')
     matches = main.sum_matches('4567')
     expect_equal(matches, 0, 'Expected %s to be %s')
+
+
+def test_matches_halfway_provided_tests():
+    matches = main.sum_matches('1212', True)
+    expect_equal(matches, 6, 'Expected %s to be %s')
+    matches = main.sum_matches('1221', True)
+    expect_equal(matches, 0, 'Expected %s to be %s')
+    matches = main.sum_matches('123425', True)
+    expect_equal(matches, 4, 'Expected %s to be %s')
+    matches = main.sum_matches('123123', True)
+    expect_equal(matches, 12, 'Expected %s to be %s')
+    matches = main.sum_matches('12131415', True)
+    expect_equal(matches, 4, 'Expected %s to be %s')
