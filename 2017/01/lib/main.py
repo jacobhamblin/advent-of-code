@@ -1,5 +1,6 @@
 import sys
 
+
 def sum_matches(str, halfway = False):
     if not str:
         return 0
