@@ -14,13 +14,16 @@ def num_matches(str):
 
 def main():
     if len(sys.argv) < 2:
-        print('missing str argument')
+        print('missing input file')
         sys.exit(1)
     if len(sys.argv) > 2:
         print('too many arguments')
         sys.exit(1)
 
-    print(num_matches(sys.argv[1]))
+    f = open(sys.argv[1],"r")
+    contents = f.read().strip()
+    f.close()
+    print(num_matches(contents))
     sys.exit(0)
 
 
