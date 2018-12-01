@@ -1,15 +1,15 @@
 import sys
 
-def num_matches(str):
+def sum_matches(str):
     if not str:
         return 0
-    matches = 0
+    matches = []
     last_char = str[len(str) - 1]
     for char in str:
         if (char == last_char):
-            matches += 1
+            matches.append(int(char))
         last_char = char
-    return matches
+    return sum(matches)
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
     f = open(sys.argv[1],"r")
     contents = f.read().strip()
     f.close()
-    print(num_matches(contents))
+    print(sum_matches(contents))
     sys.exit(0)
 
 
