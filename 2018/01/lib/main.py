@@ -6,7 +6,15 @@ def frequency_steps(list_changes, initial = 0):
 
 
 def first_repeated_frequency(list_changes, initial = 0):
-    return list_changes
+    frequencies_seen = set([initial])
+    index = 0
+    while True:
+        initial += list_changes[index]
+        if initial in frequencies_seen:
+            return initial
+        else:
+            frequencies_seen.add(initial)
+            index = (index + 1) % len(list_changes)
 
 
 def main():
@@ -22,7 +30,7 @@ def main():
     contents_list = contents.split('\n')
     nums_list = [int(str_num) for str_num in contents_list]
     f.close()
-    print(frequency_steps(nums_list))
+    print(first_repeated_frequency(nums_list))
     sys.exit(0)
 
 
