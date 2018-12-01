@@ -3,7 +3,16 @@ import sys
 def num_matches(str):
     if not str:
         return 0
-    return 1
+    if len(str) == 1:
+        return 1
+    matches = 0
+    last_char = str[len(str) - 1]
+    for char in str:
+        if (char == last_char):
+            matches += 1
+        last_char = char
+    return matches
+
 
 def main():
     if len(sys.argv) < 2:
