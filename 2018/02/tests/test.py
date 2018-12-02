@@ -29,6 +29,7 @@ def test_provided_examples():
     ]
     for example in examples:
         expect_equal(main.has_pair_and_triplet(example[0]), example[1])
+    expect_equal(main.checksum(strings), 12)
 
 
 def test_provided_part_two():
