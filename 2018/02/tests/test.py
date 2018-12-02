@@ -18,21 +18,44 @@ def test_provided_examples():
         'abcdee',
         'ababab'
     ]
-    examples = [
-        [strings[0], [0,0]],
-        [strings[1], [1,1]],
-        [strings[2], [1,0]],
-        [strings[3], [0,1]],
-        [strings[4], [1,0]],
-        [strings[5], [1,0]],
-        [strings[6], [0,1]],
+    expected_results = [
+        [0,0],
+        [1,1],
+        [1,0],
+        [0,1],
+        [1,0],
+        [1,0],
+        [0,1],
     ]
-    for example in examples:
-        expect_equal(main.has_pair_and_triplet(example[0]), example[1])
+    for index, str in enumerate(strings):
+        expect_equal(
+            main.has_pair_and_triplet(strings[index]),
+            expected_results[index],
+        )
     expect_equal(main.checksum(strings), 12)
 
 
 def test_provided_part_two():
-    examples = []
-    for example in examples:
-        print(example)
+    strings = [
+        'abcde',
+        'fghij',
+        'klmno',
+        'pqrst',
+        'fguij',
+        'axcye',
+        'wvxyz',
+    ]
+    expected_results = [
+        [3, 'ace'],
+        [4, 'fgij'],
+        [0, ''],
+        [0, ''],
+        [4, 'fgij'],
+        [3, 'ace'],
+        [1, 'y'],
+    ]
+    expected_result = 'fgij'
+    expect_equal(
+        main.common_characters_best_match(strings),
+        expected_result,
+    )

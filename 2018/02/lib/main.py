@@ -1,3 +1,4 @@
+import itertools
 import sys
 
 
@@ -24,6 +25,37 @@ def checksum(array_of_ids):
         pairs += pair
         triplets += triplet
     return pairs * triplets
+
+
+def common_characters(first_string, second_string):
+    common_chars = ''
+    count = 0
+    for index, char in enumerate(first_string):
+        if (char == second_string[index]):
+            count += 1
+            common_chars += char
+    return [count, common_chars]
+
+
+def common_characters_best_match(array_of_ids):
+    str_of_highest_parity = ''
+    peak_parities = {}
+    default = [-1, '']
+    for first_string, second_string in itertools.combinations(array_of_ids, 2):
+        [count, common_chars] = common_characters(first_string, second_string)
+        existing_record_first = peak_parities.get(first_string, default)
+        existing_record_second = peak_parities.get(second_string, default)
+        if count > existing_record_first[0]:
+            peak_parities[first_string] = [count, common_chars]
+        if count > existing_record_second[0]:
+            peak_parities[second_string] = [count, common_chars]
+        if count > peak_parities.get(str_of_highest_parity, default)[0]:
+            str_of_highest_parity = first_string
+    return peak_parities.get(str_of_highest_parity)[1]
+
+
+def get_common_characters_of_best_match(array_of_ids):
+    common_characters_list
     
 
 def main():
@@ -38,7 +70,7 @@ def main():
     contents = f.read().strip()
     contents_list = contents.split('\n')
     f.close()
-    #  print(func(contents_list))
+    print(common_characters_best_match(contents_list))
     sys.exit(0)
 
 
