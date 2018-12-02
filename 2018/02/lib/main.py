@@ -54,10 +54,6 @@ def common_characters_best_match(array_of_ids):
     return peak_parities.get(str_of_highest_parity)[1]
 
 
-def get_common_characters_of_best_match(array_of_ids):
-    common_characters_list
-    
-
 def main():
     if len(sys.argv) < 2:
         print('missing input file')
