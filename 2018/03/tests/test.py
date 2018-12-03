@@ -23,9 +23,12 @@ def test_provided_examples():
 
 def test_provided_part_two():
     strings = [
+        [1, 1, 3, 4, 4],
+        [2, 3, 1, 4, 4],
+        [3, 5, 5, 2, 2],
     ]
-    expected_result = 4
+    expected_result = 3
     expect_equal(
-        main.func(strings),
+        main.overlapping_square_count(strings, True),
         expected_result,
     )
