@@ -1,4 +1,20 @@
 import sys
+import re
+
+
+def overlapping_square_count(coords_lists):
+    squares = {}
+    for [id, left, top, width, height] in coords_lists:
+        for x in xrange(left, left + width):
+            for y in xrange(top, top + height):
+                square = squares.get((x, y), [])
+                square.append(id)
+                squares[(x, y)] = square
+    return len([
+        square for square in squares
+        if len(squares[square]) > 1
+    ])
+
 
 
 def main():
@@ -13,7 +29,11 @@ def main():
     contents = f.read().strip()
     contents_list = contents.split('\n')
     f.close()
-    #  print(func(contents_list))
+    reg = re.compile('[0-9]')
+    claims = map(lambda str: re.findall(r'-?\d+', str), contents_list)
+    for index, claim in enumerate(claims):
+        claims[index] = map(lambda str: int(str), claim)
+    print(overlapping_square_count(claims))
     sys.exit(0)
 
 

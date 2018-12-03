@@ -9,22 +9,22 @@ def expect_equal(first, second, message = 'Expected %s to be %s'):
 
 
 def test_provided_examples():
+    #  inputs
+    #  '#1 @ 1,3: 4x4'
+    #  '#2 @ 3,1: 4x4'
+    #  '#3 @ 5,5: 2x2'
     strings = [
+        [1, 1, 3, 4, 4],
+        [2, 3, 1, 4, 4],
+        [3, 5, 5, 2, 2],
     ]
-    expected_results = [
-    ]
-    for index, str in enumerate(strings):
-        expect_equal(
-            main.func(strings[index]),
-            expected_results[index],
-        )
-    expect_equal(main.checksum(strings), 12)
+    expect_equal(main.overlapping_square_count(strings), 4)
 
 
 def test_provided_part_two():
     strings = [
     ]
-    expected_result
+    expected_result = 4
     expect_equal(
         main.func(strings),
         expected_result,
