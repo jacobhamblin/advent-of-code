@@ -58,7 +58,10 @@ def test_provided_example_part_one():
         '[1518-11-05 00:03] Guard #99 begins shift\n'\
         '[1518-11-05 00:45] falls asleep\n'\
         '[1518-11-05 00:55] wakes up'
-    expect_equal(main.func(input_block), 10 * 24)
+    expect_equal(
+        main.get_sleepiest_guard_checksum(input_block.split('\n')),
+        10 * 24
+    )
 
 
 def test_provided_part_two():

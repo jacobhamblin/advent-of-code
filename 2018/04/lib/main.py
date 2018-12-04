@@ -33,16 +33,52 @@ def prep_input(input_list):
     return date_log
 
 
-def guard_shift_reports(input):
-    time_cards = {}
-    #  time_cards[id] = []
-    #  each array in time_cards[id] will have 60 boolean values
-    return time_cards
+def guard_timecards(date_log):
+    guard_timecards = {}
+    for day_str in date_log:
+        day = date_log[day_str]
+        existing_records = guard_timecards.get(day['guard_id'], [])
+        new_record = [False] * 60
+        i = 0;
+        entries = day.get('entries')
+        while i < len(entries):
+            for minute in range(entries[i], entries[i + 1]):
+                new_record[minute] = True
+            i += 2
+        existing_records.append(new_record)
+        guard_timecards[day['guard_id']] = existing_records
+    return guard_timecards
 
 
-def get_sleepiest_guard(time_cards):
-    #  for guard_id in time_cards:
-    return time_cards
+def get_most_common_sleepy_minute(shifts):
+    best = {'minute': -1, 'count': 0}
+    for i in xrange(0,60):
+        count = 0
+        for shift in shifts:
+            if shift[i]:
+                count += 1
+        if count > best['count']:
+            best['minute'] = i
+            best['count'] = count
+    return best['minute']
+
+
+def get_sleepiest_guard_checksum(input_block):
+    date_log = prep_input(input_block)
+    timecards = guard_timecards(date_log)
+    most_minutes = {'id': 0, 'minutes': 0, 'minute': -1}
+    for guard_id in timecards:
+        shift_reports = timecards[guard_id]
+        total_minutes = 0
+        for shift in shift_reports:
+            total_minutes += sum(shift)
+        if total_minutes > most_minutes['minutes']:
+            most_minutes['id'] = guard_id
+            most_minutes['minutes'] = total_minutes
+    most_minutes['minute'] = get_most_common_sleepy_minute(
+        timecards[most_minutes['id']]
+    )
+    return int(most_minutes['id']) * most_minutes['minute']
 
 
 def main():
