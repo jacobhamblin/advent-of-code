@@ -56,7 +56,7 @@ def main():
     f = open(sys.argv[1],"r")
     contents = f.read().strip()
     contents_list = contents.split('\n')
-    print(contents_list)
+    print(prep_input(contents_list))
     f.close()
     #  print(func(contents_list))
     sys.exit(0)
