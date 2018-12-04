@@ -60,7 +60,7 @@ def get_most_common_sleepy_minute(shifts):
         if count > best['count']:
             best['minute'] = i
             best['count'] = count
-    return best['minute']
+    return best
 
 
 def get_sleepiest_guard_checksum(input_block):
@@ -77,8 +77,21 @@ def get_sleepiest_guard_checksum(input_block):
             most_minutes['minutes'] = total_minutes
     most_minutes['minute'] = get_most_common_sleepy_minute(
         timecards[most_minutes['id']]
-    )
+    )['minute']
     return int(most_minutes['id']) * most_minutes['minute']
+
+
+def get_sleepiest_minute_checksum(input_block):
+    date_log = prep_input(input_block)
+    timecards = guard_timecards(date_log)
+    best_of_all = {'count': 0, 'id': 0, 'minute': -1}
+    for guard_id in timecards:
+        personal_best = get_most_common_sleepy_minute(timecards[guard_id])
+        if personal_best['count'] > best_of_all['count']:
+            best_of_all['count'] = personal_best['count']
+            best_of_all['id'] = guard_id
+            best_of_all['minute'] = personal_best['minute']
+    return int(best_of_all['id']) * best_of_all['minute']
 
 
 def main():
@@ -92,9 +105,8 @@ def main():
     f = open(sys.argv[1],"r")
     contents = f.read().strip()
     contents_list = contents.split('\n')
-    print(prep_input(contents_list))
+    print(get_sleepiest_minute_checksum(contents_list))
     f.close()
-    #  print(func(contents_list))
     sys.exit(0)
 
 
